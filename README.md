@@ -1,0 +1,1 @@
+# PluginDetectorForSc4pac
