@@ -1,0 +1,106 @@
+<UserControl
+	x:Class="PluginDetectorForSc4pac.Views.MainView"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:services="using:PluginDetectorForSc4pac.Services"
+	xmlns:vm="using:PluginDetectorForSc4pac.ViewModels"
+	d:DesignHeight="450"
+	d:DesignWidth="800"
+	x:DataType="vm:MainViewModel"
+	mc:Ignorable="d">
+	<Design.DataContext>
+		<!--  This only sets the DataContext for the previewer in an IDE; to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)  -->
+		<vm:DesignMainViewModel />
+	</Design.DataContext>
+	<Grid RowDefinitions="Auto,Auto,*">
+
+		<!--  Row 0 : Header  -->
+		<Grid
+			Grid.Row="0"
+			Margin="5"
+			Background="MediumPurple"
+			ColumnDefinitions="*,Auto,Auto"
+			ColumnSpacing="10">
+			<TextBox x:Name="PluginsFolderPath"
+				Grid.Column="0"
+				FontFamily="Consolas, Courier New, monospace"
+				Text="{Binding PluginsFolder}" />
+			<Button x:Name="ChoosePluginsFolder"
+				Grid.Column="1"
+				Command="{Binding ChooseFolderCommand}"
+				Content="Choose Folder"
+				ToolTip.Tip="Choose Plugins Folder" />
+			<Button x:Name="OpenPluginsFolder"
+				Grid.Column="2"
+				Command="{Binding OpenFolderCommand}"
+				Content="Open Folder"
+				ToolTip.Tip="Open in file browser" />
+		</Grid>
+
+
+		<!--  Row 1 : Scan status  -->
+		<StackPanel
+			Grid.Row="1"
+			Orientation="Horizontal"
+			Spacing="10">
+			<Button x:Name="ScanPlugins"
+				Command="{Binding ScanPluginsCommand}"
+				Content="Scan Plugins" />
+			<StackPanel>
+				<TextBlock x:Name="ScanState" Text="{Binding ScanProgress}" />
+				<ProgressBar x:Name="ScanProgress"
+					Maximum="{Binding FileCount}"
+					Value="{Binding FilesScanned}" />
+			</StackPanel>
+
+			<TextBlock x:Name="ScanTime"
+				VerticalAlignment="Center"
+				Text="{Binding LastScanned}" />
+			<!--<Image Height="30" Source="{SvgImage /Assets/Icons/fluent-box-48-regular.svg}"  />-->
+		</StackPanel>
+
+
+		<!--  Row 2 : Data  -->
+		<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+			<ItemsControl ItemsSource="{Binding Results}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Expander HorizontalAlignment="Stretch" VerticalAlignment="Top">
+							<Expander.Header>
+								<StackPanel Orientation="Horizontal">
+									<SelectableTextBlock Text="{Binding Package}" />
+									<SelectableTextBlock HorizontalAlignment="Stretch" Text="  (6 files)" />
+									<Button Command="{Binding OpenPackageInSc4pac}" ToolTip.Tip="Open in sc4pac">
+										<StackPanel Orientation="Horizontal">
+											<Label Classes="icon" Content="&#xe1da;" />
+										</StackPanel>
+									</Button>
+									<Button Command="{Binding OpenParentFolder}" ToolTip.Tip="Open parent folder">
+										<StackPanel Orientation="Horizontal">
+											<Label Classes="icon" Content="&#xe256;" />
+										</StackPanel>
+									</Button>
+
+								</StackPanel>
+							</Expander.Header>
+							<!--  Inner list of strings  -->
+							<StackPanel>
+								<ItemsControl ItemsSource="{Binding Files}">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<SelectableTextBlock Margin="20,0,0,0" Text="{Binding}" />
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</StackPanel>
+						</Expander>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+
+	</Grid>
+
+</UserControl>
