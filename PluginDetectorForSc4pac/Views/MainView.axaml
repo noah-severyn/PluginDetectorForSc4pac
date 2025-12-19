@@ -20,7 +20,6 @@
 		<Grid
 			Grid.Row="0"
 			Margin="5"
-			Background="MediumPurple"
 			ColumnDefinitions="*,Auto,Auto"
 			ColumnSpacing="10">
 			<TextBox x:Name="PluginsFolderPath"
@@ -69,21 +68,45 @@
 					<DataTemplate>
 						<Expander HorizontalAlignment="Stretch" VerticalAlignment="Top">
 							<Expander.Header>
-								<StackPanel Orientation="Horizontal">
-									<SelectableTextBlock Text="{Binding Package}" />
-									<SelectableTextBlock HorizontalAlignment="Stretch" Text="  (6 files)" />
-									<Button Command="{Binding OpenPackageInSc4pac}" ToolTip.Tip="Open in sc4pac">
+								<Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto" ColumnSpacing="10">
+									<SelectableTextBlock
+										Grid.Column="0"
+										VerticalAlignment="Center"
+										Text="{Binding Package}" />
+									<SelectableTextBlock
+										Grid.Column="1"
+										Margin="10,0"
+										HorizontalAlignment="Stretch"
+										VerticalAlignment="Center"
+										Text="(6 files)" />
+									<Button
+										Grid.Column="2"
+										Padding="2"
+										Command="{Binding OpenPackageInSc4pac}"
+										ToolTip.Tip="Open in sc4pac">
 										<StackPanel Orientation="Horizontal">
 											<Label Classes="icon" Content="&#xe1da;" />
 										</StackPanel>
 									</Button>
-									<Button Command="{Binding OpenParentFolder}" ToolTip.Tip="Open parent folder">
+									<Button
+										Grid.Column="3"
+										Padding="2"
+										Command="{Binding OpenParentFolder}"
+										ToolTip.Tip="Open parent folder">
 										<StackPanel Orientation="Horizontal">
 											<Label Classes="icon" Content="&#xe256;" />
 										</StackPanel>
 									</Button>
-
-								</StackPanel>
+									<Button
+										Grid.Column="4"
+										Padding="2"
+										Command="{Binding OpenParentFolder}"
+										ToolTip.Tip="Open parent folder">
+										<StackPanel Orientation="Horizontal">
+											<Label Classes="icon" Content="&#xec54;" />
+										</StackPanel>
+									</Button>
+								</Grid>
 							</Expander.Header>
 							<!--  Inner list of strings  -->
 							<StackPanel>

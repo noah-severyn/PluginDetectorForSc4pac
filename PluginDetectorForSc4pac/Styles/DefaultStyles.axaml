@@ -19,6 +19,8 @@
 	<Style Selector="Label.icon">
 		<Setter Property="FontFamily" Value="{DynamicResource ResourceKey=Phosphor}" />
 		<Setter Property="FontSize" Value="20" />
+		<Setter Property="Padding" Value="-1" />
+		<Setter Property="Margin" Value="0" />
 		<!--<Setter Property="Margin" Value="0 2 0 0" />-->
 	</Style>
 </Styles>

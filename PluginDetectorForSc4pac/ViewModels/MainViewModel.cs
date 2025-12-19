@@ -4,15 +4,11 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using System.Web;
-using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using csDBPF;
 using PluginDetectorForSc4pac.Services;
-using PluginDetectorForSc4pac.Views;
 
 namespace PluginDetectorForSc4pac.ViewModels;
 
@@ -88,10 +84,7 @@ public partial class MainViewModel(IFolderPickerService folderPicker, IDbpfServi
 
     [RelayCommand(CanExecute = nameof(PluginsFolderValid))]
     private async Task ScanPlugins() {
-        //var files = Directory.EnumerateFiles(PluginsFolder, "*", SearchOption.AllDirectories);
         LastScanned = "Last scan: " + DateTime.Now.ToString();
-        //FileCount = files.Count();
-        //FilesScanned = 0;
 
         var progress = new Progress<ScanProgress>(p => {
             FilesScanned = p.FilesScanned;

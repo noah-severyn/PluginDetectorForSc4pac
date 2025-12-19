@@ -29,7 +29,9 @@ namespace PluginDetectorForSc4pac.ViewModels {
 
         // Mock services for design-time only
         private class DesignFolderPickerService : IFolderPickerService {
-            public Task<string?> PickFolderAsync() => Task.FromResult<string?>(null);
+            public static Task<string?> PickFolderAsync() {
+                return Task.FromResult<string?>(null);
+            }
 
             Task<IStorageFolder?> IFolderPickerService.PickFolderAsync() {
                 throw new NotImplementedException();
